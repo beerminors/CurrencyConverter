@@ -11,7 +11,6 @@ var CONVERTER = (function (cc, $, Modernizr) {
 		$currSwitcher = $(".currency-switcher"),
 		$labelfrom = $screenContainer.find(".label-from"),
 		$labelto = $screenContainer.find(".label-to"),
-		datatest = {},
 		assets = [],
 
 	_bindSnap = function() {
