@@ -1,93 +1,352 @@
 $icon-font-path: "../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
-
 // bower:scss
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
 // endbower
 
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
+// mixins
+@mixin ios-scrolling() {
+    -webkit-overflow-scrolling: touch;
+    overflow-scrolling: touch;
 }
 
-/* Space out content a bit */
+// currency mini project colors
+$ultralight-gray    : #f4f4f4;
+$light-gray         : #cfcfcf;
+$dark-gray          : #464646;
+$darker-gray        : #1d1d1d;
+$darker-blue        : #132533;
+$dark-blue          : #1f3b50;
+$light-blue         : #32c9da;
+
+
+// snap js
+.snap-content {
+    @include ios-scrolling();
+    @include translate3d(0, 0, 0);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+    z-index: 2;
+    overflow: auto;
+}
+
+.snap-drawers {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: auto;
+    height: auto;
+}
+
+.snap-drawer {
+    @include ios-scrolling();
+    @include transition(width 0.3s ease);
+    position: absolute;
+    top: 0;
+    right: auto;
+    bottom: 0;
+    left: auto;
+    width: 266px;
+    height: auto;
+    overflow: auto;
+    &-left {
+        left: 0;
+        z-index: 1;
+        background-color: $darker-gray;
+        .header {
+            background: none;
+        }
+    }
+    &-right {
+        right: 0;
+        z-index: 1;
+    }
+}
+
+.snapjs-left .snap-drawer-right,
+.snapjs-right .snap-drawer-left {
+    display: none;
+}
+
+.snapjs-expand-left .snap-drawer-left,
+.snapjs-expand-right .snap-drawer-right {
+    width: 100%;
+}
+
+html,
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
+    height: 100%;
+    overflow-x: hidden;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
+body {
+    @include ios-scrolling();
+    @include square(100%);
+    overflow-y: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    font-weight: lighter;
+}
+.snapjs-left {
+    #content {
+        &:after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            // background-color: rgba(255,255,255,.6);
+        }
+    }
 }
 
-/* Custom page header */
+#content {
+    position: relative;
+    z-index: 5;
+    height: 100vh;
+    background-color: #fff;
+}
+
+.nav {
+    > li {
+        float: none;
+        & + li {
+            margin-left: 0;
+        }
+        > a {
+            @include transition(all .22s ease);
+            border-radius: 0;
+            border-bottom: 1px solid $dark-gray;
+            color: #fff;
+            padding: 18px 15px;
+            font-size: 1.6rem;
+            &:hover, &:focus, &.selected {
+                background-color: $dark-blue;
+                
+            }
+        }
+    }
+}
+
+.mobile-header {
+    background-color: $dark-blue;
+    position: relative;
+    color: #fff;
+    padding: 8px;
+    .glyphicon {
+        @include square(2.2rem);
+        position: absolute;
+        top: 50%;
+        left: 10px;
+        font-size: 2.2rem;
+        margin-top: -1.1rem;
+        cursor: pointer;
+    }
+    h3 {
+        margin: 0;
+        text-transform: uppercase;
+        text-align: center;
+    }
+}
+
 .header {
-  border-bottom: 1px solid #e5e5e5;
-
-  /* Make the masthead heading the same height as the navigation */
-  h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px;
-  }
+    background-color: $dark-blue;
+    color: #fff;
+    padding: 0;
+    h3 {
+        padding: 0;
+        margin: 0;
+        display: none;
+        text-transform: uppercase;
+    }
+    h5 {
+        margin: 0;
+        padding: 10px 15px;
+        text-transform: uppercase;
+        font-size: 2rem;
+        font-weight: 300;
+        letter-spacing: 1px;
+        border-bottom: 1px solid $dark-gray;
+    }
 }
 
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+// white screen digit
+.screen-digit {
+    background-color: #fff;
+    position: relative;
+    .col-sm-6 {
+        position: relative;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        &:first-child {
+            border-bottom: 1px solid $light-gray;
+        }
+    }
+    .label-flag {
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        bottom: 0;
+        margin-top: -28px;
+        font-size: 1.6rem;
+    }
+    .currency {
+        &-from {
+            color: $dark-blue;
+        }
+        &-to {
+            color: $light-blue;
+            font-weight: 400;
+        }
+    }
+    .screen-input  {
+        @include user-select(none);
+        font-size: 3rem;
+        pointer-events: none;
+        -webkit-appearance: none;
+        cursor: default;
+        background: none;
+        border: none;
+        margin: 0;
+        padding: 0;
+        display: block;
+        width: 100%;
+        text-align: right;
+    }
 }
 
-.container-narrow > hr {
-  margin: 30px 0;
+.cc {
+    &-from {
+
+    }
+    &-to {
+        &,
+        .screen-input {
+            font-weight: 400;
+            color: $light-blue;
+        }
+    }
 }
 
-/* Main marketing message and sign up button */
-.jumbotron {
-  text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-  .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-  }
+// screen button
+.screen-buttons {
+    @include user-select(none);
+    .key-input {
+        // @include user-select(none);
+        // -webkit-touch-callout: none;
+        font-size: 2.5rem;
+        cursor: pointer;
+        padding: 18px;
+        text-align: center;
+        background-color: $dark-blue;
+        color: #fff;
+        border-right: 1px solid $darker-blue;
+        border-top: 1px solid $darker-blue;
+        outline: none;
+    }
 }
 
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-  p + h4 {
-    margin-top: 28px;
-  }
+// icon set
+.icon {
+    &-aud {
+        &:before {
+            background: url("https://s3-ap-southeast-2.amazonaws.com/ubiquity-utilities/frontend_test/flags/au.png");
+        }
+    }
+    &-usd {
+        &:before {
+            background: url("https://s3-ap-southeast-2.amazonaws.com/ubiquity-utilities/frontend_test/flags/us.png");
+        }
+    }
+    &-gbp {
+        &:before {
+            background: url("https://s3-ap-southeast-2.amazonaws.com/ubiquity-utilities/frontend_test/flags/uk.png");
+        }
+    }
+    &-flag {
+        &:before {
+            @include square(60px);
+            background-repeat: no-repeat;
+            content: "";
+            display: inline-block;
+            background-size: 100%;
+            vertical-align: middle;
+            margin-right: 18px;
+        }
+    }
 }
 
 /* Responsive: Portrait tablets and up */
+
 @media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
-
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
-
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
-  }
+    #content {
+        height: auto;
+    }
+    .container {
+        // max-width: 1920px;
+        width: 100%;
+    }
+    .snap-drawer-left {
+        .header {
+            background-color: $dark-blue;
+            h3 {
+                display: block;
+            }
+        }
+    }
+    .header { 
+        padding: 10px 15px;
+         h3 {
+            line-height: 1.8;
+        }
+    }
+    .snap-drawer {
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+    .snap-drawers,
+    .snap-drawer {
+        position: relative;
+        width: auto;
+    }
+    .nav {
+        float: right;
+        > li {
+            float: left;
+            > a {
+                border-radius: 4px;
+                border: 1px solid #fff;
+                padding: 10px;
+                margin: 0 10px;
+                color: $ultralight-gray;
+                &:hover, &:focus, &.selected {
+                    background-color: $darker-blue;
+                }
+            }
+        }
+    }
+    .screen-digit {
+        @include user-select(none);
+        .col-sm-6 {
+            &:first-child {
+                border-right: 1px solid $light-gray;
+                border-bottom: none;
+            }
+        }
+        .screen-input {
+            font-size: 4.4rem;
+        }
+    }
 }
