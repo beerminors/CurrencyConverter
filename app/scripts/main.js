@@ -15,32 +15,28 @@ var CONVERTER = (function (cc, $, Modernizr) {
 		assets = [],
 
 	_bindSnap = function() {
-		// $('body').bind('touchstart', function() {});
-		// The function that will initialize your Snap.js instance
-		if(window.snapper) {
-         // Snap.js already exists, we just need to re-bind events
-	        window.snapper.enable();
-	    } else {
-	        // Initialize Snap.js
-	        window.snapper = new Snap({
-	            element: document.getElementById('content'),
-	            disable: 'right'
-	        });
-
-	        $("#open-left").on("click", function(e) {
-				e.preventDefault();
-				window.snapper.open('left');
-	        });
-	    } 
-	    window.addEventListener('push', _bindSnap);
-
-
 	    // force load resize
 	    $(window).on("load resize", function () {
 		    if (Modernizr.mq('all and (max-width: 768px)')) {
-		        _bindSnap();
+		        // The function that will initialize your Snap.js instance
+				if(window.snapper) {
+		         // Snap.js already exists, we just need to re-bind events
+			        window.snapper.enable();
+			    } else {
+			        // Initialize Snap.js
+			        window.snapper = new Snap({
+			            element: document.getElementById('content'),
+			            disable: 'right'
+			        });
+
+			        $("#open-left").on("click", function(e) {
+						e.preventDefault();
+						window.snapper.open('left');
+			        });
+			    } 
+			    window.addEventListener('push', _bindSnap);
 		    }
-		    if (Modernizr.mq('all and (min-width: 768px)')) {
+		    else {
 		        if(window.snapper) {
 		            window.snapper.close();
 		            window.snapper.disable();
