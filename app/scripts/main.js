@@ -162,6 +162,10 @@ var CONVERTER = (function (cc, $, Modernizr) {
 		        		.text(lb_to);
 		        break;
 		}
+		// clear input 
+		if($("#currency-to").autoNumeric('get') == 0) {
+			$("#currency-to").val('');
+		}	
 	},
 
 	_getRates = function() {
@@ -187,9 +191,6 @@ var CONVERTER = (function (cc, $, Modernizr) {
 
 	_resetSwitcher = function() {
 		$currSwitcher.find("[data-currency-rate]").first().trigger("click");	
-		if($("#currency-to").autoNumeric('get') == 0) {
-			$("#currency-to").val('');
-		}	
 	},
 
 	_touchDevice = function() {
