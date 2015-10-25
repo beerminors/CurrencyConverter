@@ -44,22 +44,25 @@ var CONVERTER = (function (cc, $, Modernizr) {
 	    });
 	},
 
-	_bindKeypress = function() {
+	_initInputs = function() {
 		$("#currency-from").autoNumeric('init', {vMax: 99999.99});
 		$("#currency-to").autoNumeric('init');
+	},
+
+	_bindKeypress = function() {
 		$("#screen_keys").delegate('.key-input', 'touchend click', function(el) {
 			el.preventDefault();
-			
 			if (dragging) { return; }
-			ccRate = $currSwitcher.find("a.selected").data("currency-rate");
-			var e = $.Event("keypress");
-			e.ctrlKey = false;
-			e.which = $(el.currentTarget).data("keychar"); // # Some key code value
 
-			if(e.which == 8) {
+			ccRate = $currSwitcher.find("a.selected").data("currency-rate");
+			var eInput = $.Event("keypress");
+			eInput.ctrlKey = false;
+			eInput.which = $(el.currentTarget).data("keychar"); // # Some key code value
+
+			if(eInput.which == 8) {
 				_bindBackspace($currFromInput);
 			} else {
-				$currFromInput.trigger(e);
+				$currFromInput.trigger(eInput);
 			}
 
 			_calculateRate(ccRate);
@@ -116,6 +119,7 @@ var CONVERTER = (function (cc, $, Modernizr) {
 
 		_preloadImages(unpackAssets); // need to preload image assets there're not sprite
 		_resetSwitcher();
+		_bindKeypress();
 	},
 
 	_updateDisplayScreen = function(from_to, lb_from, lb_to) {
@@ -225,9 +229,9 @@ var CONVERTER = (function (cc, $, Modernizr) {
 		if (Modernizr.touch) {
 			_touchDevice(); // enhancing touch device
 		}
+		_initInputs();
 		_getRates();
 		_bindSnap();
-		_bindKeypress();
 	};
 
 
