@@ -194,6 +194,16 @@ body {
             border-bottom: 1px solid $light-gray;
         }
     }
+    .flag-wrapper {
+        @include gradient-horizontal(rgba(255,255,255,1), rgba(255,255,255,0), 90%, 100%);
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        height: 100%;
+        width: 45%;
+        z-index: 0;
+    }
     .label-flag {
         position: absolute;
         left: 20px;
@@ -201,6 +211,7 @@ body {
         bottom: 0;
         margin-top: -28px;
         font-size: 1.6rem;
+        z-index: 1;
     }
     .currency {
         &-from {
@@ -308,6 +319,7 @@ body {
     }
     .header { 
         padding: 10px 15px;
+        height: 64px;
          h3 {
             line-height: 1.8;
         }
