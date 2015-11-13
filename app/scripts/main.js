@@ -1,10 +1,10 @@
 var CONVERTER = (function (cc, $, Modernizr) {
 
 	"use strct";
-	var 
+	var
 		dragging = false,
 		ccRate = 0,
-		dataUrl = "https://jsonp.afeld.me/?callback=foo&url=https%3A%2F%2Fs3-ap-southeast-2.amazonaws.com%2Fubiquity-utilities%2Ffrontend_test%2Fcurrencies.json",
+		dataUrl = "https://jsonp.afeld.me/?url=https://s3-ap-southeast-2.amazonaws.com/ubiquity-utilities/frontend_test/currencies.json",
 		$screenContainer = $(".screen-digit"),
 		$currFromInput = $("#currency-from"),
 		$currToInput = $("#currency-to"),
@@ -32,7 +32,7 @@ var CONVERTER = (function (cc, $, Modernizr) {
 						e.preventDefault();
 						window.snapper.open('left');
 			        });
-			    } 
+			    }
 			    window.addEventListener('push', _bindSnap);
 		    }
 		    else {
@@ -165,10 +165,10 @@ var CONVERTER = (function (cc, $, Modernizr) {
 		        		.text(lb_to);
 		        break;
 		}
-		// clear input 
+		// clear input
 		if($("#currency-to").autoNumeric('get') == 0) {
 			$("#currency-to").val('');
-		}	
+		}
 	},
 
 	_getRates = function() {
@@ -193,7 +193,7 @@ var CONVERTER = (function (cc, $, Modernizr) {
 	},
 
 	_resetSwitcher = function() {
-		$currSwitcher.find("[data-currency-rate]").first().trigger("click");	
+		$currSwitcher.find("[data-currency-rate]").first().trigger("click");
 	},
 
 	_touchDevice = function() {
@@ -238,11 +238,3 @@ var CONVERTER = (function (cc, $, Modernizr) {
 	return cc;
 }(CONVERTER || {}, jQuery, Modernizr));
 CONVERTER._init();
-
-
-
-
-
-
-
-
